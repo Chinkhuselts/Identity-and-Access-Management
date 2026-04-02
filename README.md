@@ -7,6 +7,10 @@ This project is a prototype **Identity and Access Management (IAM) system** desi
 The system centralizes user authentication, authorization, and access management to reduce security risks and administrative overhead.
 
 ---
+## 📌 Project Scope
+This project focuses on developing the core backend components of an Identity and Access Management (IAM) system, including API development, user management, and secure token-based communication.
+
+The system is implemented as a functional prototype with essential capabilities. Advanced features such as a full frontend interface, multi-factor authentication (MFA), and cloud deployment are considered future improvements and are not the primary focus of this stage.
 
 ## 🎯 Main Features
 
