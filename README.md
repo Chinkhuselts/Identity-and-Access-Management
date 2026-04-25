@@ -46,7 +46,7 @@ PostgreSQL (via pgAdmin)
 JSON Web Tokens (JWT)
 bcryptjs for password hashing  
 
-## Environment Variables
+### Environment Variables
  dotenv
 
 ### Documentation
