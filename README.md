@@ -37,18 +37,20 @@ Programmatic interface for adding, modifying, or revoking users.
 ## 🛠️ Technology Plan
 
 ### Backend / API
-Node.js with Express  
-OR  
-Python with FastAPI  
+Node.js with Express
 
 ### Database
-PostgreSQL  
-OR  
-MongoDB  
+PostgreSQL (via pgAdmin)
 
 ### Security
-JWT for session management  
-bcrypt for password hashing  
+JSON Web Tokens (JWT)
+bcryptjs for password hashing  
+
+## Environment Variables
+ dotenv
 
 ### Documentation
 API documentation in folder
+
+
+
