@@ -1,56 +1,50 @@
 # 🔐 Identity and Access Management (IAM) System
 
+[![Deployed on Railway](https://img.shields.io/badge/Deployed_on-Railway-0B0D0E?style=for-the-badge&logo=railway)](https://identity-and-access-management-production.up.railway.app)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](#)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](#)
+
 ## 📌 Project Description
+This project is a fully functioning, cloud-deployed **Identity and Access Management (IAM) API** designed to provide secure authentication, role-based access control (RBAC), and session management for modern web applications. 
 
-This project is a prototype **Identity and Access Management (IAM) system** designed to provide secure authentication and role-based access control for organizational systems.
+By centralizing user authentication and authorization, this system reduces security risks, minimizes administrative overhead, and provides a secure gateway for internal systems to verify user identities.
 
-The system centralizes user authentication, authorization, and access management to reduce security risks and administrative overhead.
-
----
-## 📌 Project Scope
-This project focuses on developing the core backend components of an Identity and Access Management (IAM) system, including API development, user management, and secure token-based communication.
-
-The system is implemented as a functional prototype with essential capabilities. Advanced features such as a full frontend interface, multi-factor authentication (MFA), and cloud deployment are considered future improvements and are not the primary focus of this stage.
-
-## 🎯 Main Features
-
-### 🔑 User Authentication
-Secure login, registration, and password recovery.
-
-### 🛡️ Role-Based Access Control (RBAC)
-Assign roles (Admin, Manager, Employee) to control access to different resources.
-
-### 🔐 Token-Based Security
-Use JWT tokens for secure API access.
-
-### 📊 Audit Logging
-Track user actions to ensure compliance with standards like GDPR or HIPAA.
-
-### 🔌 API Integration
-Allow internal systems (e.g., payroll, project management tools, internal databases) to securely connect to the IAM system.
-
-### 👥 User Management
-Programmatic interface for adding, modifying, or revoking users.
+🚀 **Live API Base URL:** `https://identity-and-access-management-production.up.railway.app`
 
 ---
 
-## 🛠️ Technology Plan
+## 🎯 Core Features
+* **☁️ Cloud-Native Deployment:** Fully hosted on Railway.app with a live provisioned PostgreSQL database.
+* **🔑 Secure Authentication:** User registration and login utilizing `bcryptjs` for robust password hashing.
+* **🛡️ Role-Based Access Control (RBAC):** Foundation for assigning specific access tiers (e.g., Admin, Manager, User) to restrict protected resources.
+* **🔐 Stateless Security:** Utilizes JSON Web Tokens (JWT) for secure, scalable API communication without relying on server-side sessions.
+* **📊 Automated Audit Logging:** System automatically tracks critical user actions (like `LOGIN` and `REGISTER`) in the database for compliance and security monitoring.
 
-### Backend / API
-Node.js with Express
+---
 
-### Database
-PostgreSQL (via pgAdmin)
+## 🛠️ Technology Stack
+* **Backend Framework:** Node.js with Express.js
+* **Database:** PostgreSQL (Hosted on Railway)
+* **Authentication:** JSON Web Tokens (JWT)
+* **Security:** bcryptjs (password hashing)
+* **Environment Management:** dotenv
 
-### Security
-JSON Web Tokens (JWT)
-bcryptjs for password hashing  
+---
 
-### Environment Variables
- dotenv
+## 📡 API Endpoints
 
-### Documentation
-API documentation in folder
+Use these endpoints to interact with the live IAM system. All POST requests require a JSON body.
 
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/` | Health check to verify the API is running | No |
+| `POST` | `/auth/register` | Creates a new user in the database | No |
+| `POST` | `/auth/login` | Authenticates user and returns a JWT | No |
+| `GET` | `/users/*` | User management operations (in development) | Yes (JWT) |
+| `GET` | `/audit/*` | Retrieves security logs (in development) | Yes (JWT) |
 
-
+### Example Request (Registration)
+```bash
+curl -X POST [https://identity-and-access-management-production.up.railway.app/auth/register](https://identity-and-access-management-production.up.railway.app/auth/register) \
+-H "Content-Type: application/json" \
+-d '{"username": "test_user", "email": "test@example.com", "password": "securepassword123"}'
