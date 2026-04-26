@@ -33,18 +33,64 @@ By centralizing user authentication and authorization, this system reduces secur
 
 ## 📡 API Endpoints
 
-Use these endpoints to interact with the live IAM system. All POST requests require a JSON body.
+Use these endpoints to interact with the live IAM system. All POST requests require a JSON body. Protected routes require a valid JWT in the `Authorization: Bearer <token>` header.
 
 | Method | Endpoint | Description | Auth Required |
 | :--- | :--- | :--- | :--- |
 | `GET` | `/` | Health check to verify the API is running | No |
 | `POST` | `/auth/register` | Creates a new user in the database | No |
 | `POST` | `/auth/login` | Authenticates user and returns a JWT | No |
-| `GET` | `/users/*` | User management operations (in development) | Yes (JWT) |
-| `GET` | `/audit/*` | Retrieves security logs (in development) | Yes (JWT) |
+| `GET` | `/users` | Lists all registered users and their roles | Yes (JWT + Admin) |
+| `POST` | `/users/:id/roles` | Assigns a specific role to a user (replace `:id` with user ID) | Yes (JWT + Admin) |
+| `DELETE` | `/users/:id` | Deactivates a user account (replace `:id` with user ID) | Yes (JWT + Admin) |
+| `GET` | `/audit` | Retrieves security and action logs | Yes (JWT + Admin) |
 
-### Example Request (Registration)
+### Example Request (Login)
 ```bash
-curl -X POST [https://identity-and-access-management-production.up.railway.app/auth/register](https://identity-and-access-management-production.up.railway.app/auth/register) \
+curl -X POST [https://identity-and-access-management-production.up.railway.app/auth/login](https://identity-and-access-management-production.up.railway.app/auth/login) \
 -H "Content-Type: application/json" \
--d '{"username": "test_user", "email": "test@example.com", "password": "securepassword123"}'
+-d '{"email": "test@example.com", "password": "securepassword123"}'
+```
+### 💻 Local Development Setup
+If you would like to run this project locally on your own machine, follow these steps:
+
+1. Clone the repository:
+ 
+```bash
+git clone [https://github.com/Chinkhuselts/Identity-and-Access-Management.git](https://github.com/Chinkhuselts/Identity-and-Access-Management.git)
+cd Identity-and-Access-Management
+2. Install dependencies:
+```
+```bash
+npm install
+3. Set up environment variables:
+Create a .env file in the root directory and add your local PostgreSQL credentials:
+```
+Code snippet
+```bash
+PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=your_local_db_name
+DB_USER=your_postgres_user
+DB_PASSWORD=your_postgres_password
+JWT_SECRET=create_a_random_secret_string
+```
+4. Initialize the Database:
+Run the schema file in your local PostgreSQL terminal to create the tables:
+```bash
+psql -U your_postgres_user -d your_local_db_name -f db/schema.sql
+5. Start the server:
+```
+```bash
+npm start
+The server will run on http://localhost:3000
+```
+###🔮 Future Scope
+While the backend architecture and cloud database are fully operational, planned future enhancements include:
+
+Developing a visual Frontend Dashboard (HTML/CSS/JS) to interact with the API seamlessly.
+
+Implementing Multi-Factor Authentication (MFA).
+
+Creating automated password reset workflows via email integration.
