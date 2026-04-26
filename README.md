@@ -51,6 +51,8 @@ The following endpoints are available for testing via Postman or cURL. Protected
 ### Testing Example (cURL)
 To test user registration programmatically:
 ```bash
-curl -X POST [https://identity-and-access-management-production.up.railway.app/auth/register](https://identity-and-access-management-production.up.railway.app/auth/register) \
+curl -X POST https://identity-and-access-management-production.up.railway.app/auth/register \
 -H "Content-Type: application/json" \
 -d '{"username": "demo_user", "email": "demo@vizja.pl", "password": "securepassword123"}'
+{"error":"relation \"users\" does not exist"}
+```
