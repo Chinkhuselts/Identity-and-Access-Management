@@ -54,5 +54,4 @@ To test user registration programmatically:
 curl -X POST https://identity-and-access-management-production.up.railway.app/auth/register \
 -H "Content-Type: application/json" \
 -d '{"username": "demo_user", "email": "demo@vizja.pl", "password": "securepassword123"}'
-{"error":"relation \"users\" does not exist"}
 ```
