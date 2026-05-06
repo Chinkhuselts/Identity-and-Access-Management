@@ -62,3 +62,15 @@ curl -X POST https://identity-and-access-management-production.up.railway.app/au
 This project demonstrates a centralized Identity and Access Management system that securely handles authentication, authorization, and user management.
 
 It shows how organizations can reduce security risks, simplify access control, and improve system monitoring through a structured backend architecture.
+
+---
+
+## 👥 Team Contributions
+
+| Member           | Contribution                                      |
+|------------------|--------------------------------------------------|
+| Chinkhuselts     | Backend API, authentication logic, JWT           |
+| Samreen1629      | Database design, PostgreSQL schema               |
+| UwaseNadege      | Security, JWT validation, RBAC access control    |
+| AnastiaChaika    | API testing and documentation                    |
+| AgamirAhmadov    | Project documentation and API description        |
