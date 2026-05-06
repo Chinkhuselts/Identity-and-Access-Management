@@ -53,5 +53,14 @@ To test user registration programmatically:
 ```bash
 curl -X POST https://identity-and-access-management-production.up.railway.app/auth/register \
 -H "Content-Type: application/json" \
+
+
+---
+
+## 🧾 Summary
+
+This project demonstrates how a centralized IAM system can securely manage user authentication, authorization, and access control across multiple systems.
+
+It highlights how organizations can reduce security risks, improve access management, and ensure proper control over user permissions using a structured backend architecture.
 -d '{"username": "demo_user", "email": "demo@vizja.pl", "password": "securepassword123"}'
 ```
