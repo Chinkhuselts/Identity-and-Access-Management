@@ -10,7 +10,7 @@ Managing digital tool access across modern organizations can be complex and erro
 
 🚀 **Live Prototype API:** `https://identity-and-access-management-production.up.railway.app`
 
-----
+---
 
 ## 🎯 Core Features (Implemented)
 This application was developed exclusively as a backend API prototype:
