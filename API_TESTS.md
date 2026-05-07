@@ -1,58 +1,102 @@
-\# IAM System — API Test Results
+# IAM System: Team Testing Guide
 
- 
+This guide explains how to test our Identity and Access Management system using the production API link.
 
-\## Use Case 1 — Register User
+**API Base URL:** `https://identity-and-access-management-production.up.railway.app`
 
-POST /auth/register
+---
 
-Result: User registered successfully, id: 1
+## Phase 1: Creating your Identity (Registration)
 
+Every team member needs to register first. This creates your user in the system, but you will have zero permissions by default (Security First approach).
 
+**Command:**
+```bash
+curl -X POST https://identity-and-access-management-production.up.railway.app/auth/register \
+-H "Content-Type: application/json" \
+-d '{
+ "username": "your_name",
+ "email": "your_email@vizja.pl",
+ "password": "your_password"
+}'
+```
 
-\## Use Case 2 — Assign Admin Role
+**Action for Team:** Send your registered email to me (the Admin) so I can grant you permissions in the database.
 
-pgAdmin: INSERT INTO user\_roles VALUES (1, 1)
+---
 
-Result: INSERT 0 1
+## Phase 2: Obtaining your Digital ID (Login)
 
+Once I have assigned you a role, you need to log in to receive your JWT (JSON Web Token). This token proves who you are to the server.
 
+**Command:**
+```bash
+curl -X POST https://identity-and-access-management-production.up.railway.app/auth/login \
+-H "Content-Type: application/json" \
+-d '{
+ "email": "your_email@vizja.pl",
+ "password": "your_password"
+}'
+```
 
-\## Use Case 3 — Login and Get JWT
+**What to look for:**
+*   Copy the long string starting with `eyJ...` inside the `"token"` field.
+*   Check the `"role"` field. If I haven't promoted you yet, it will say `null`.
 
-POST /auth/login
+---
 
-Result: Login successful, JWT token received
+## Phase 3: Testing the Security Guard (Authorization)
 
+We have a protected endpoint `/users` that only Admins can see. This is where we test if our Role-Based Access Control (RBAC) works.
 
+**Command:**
+```bash
+curl -X GET https://identity-and-access-management-production.up.railway.app/users \
+-H "Authorization: Bearer PASTE_TOKEN"
+```
 
-\## Use Case 4 — Admin Creates Another User
+**Expected Results for your Report:**
+1.  **If you have no role (`null`):** You will see `{"error": "Access denied. Requires admin role"}`. This proves our security middleware is working!
+2.  **If I promoted you to Admin:** You will see a JSON list of all users in the system.
+3.  **If you use a fake/expired token:** You will see an "Unauthorized" or "Invalid token" error.
 
-POST /auth/register
+---
 
-Result: employee1 created, id: 2
+### Fast-Track: Testing as an "Admin"
 
+Use this account to verify that the system grants full access to authorized administrators.
 
+**Admin Credentials:**
+*   **Email:** `demo1@vizja.pl`
+*   **Password:** `securepassword1123`
 
-\## Use Case 5 — Admin Assigns Role
+**Step A: Login to get the Admin JWT**
+```bash
+curl -X POST https://identity-and-access-management-production.up.railway.app/auth/login \
+-H "Content-Type: application/json" \
+-d '{"email": "demo1@vizja.pl", "password": "securepassword1123"}'
+```
+*   **Result:** You will receive a JSON response. Copy the long `"token"` string.
 
-POST /users/2/roles
+**Step B: Access Protected User List**
+```bash
+curl -X GET https://identity-and-access-management-production.up.railway.app/users \
+-H "Authorization: Bearer <PASTE_TOKEN>"
+```
+*   **Expected Result:** A full JSON list of all registered users. This proves Authorization is working.
 
-Result: Role 'employee' assigned to user 2
+---
 
+## Phase 4: Accountability (Audit Logs)
 
+Every time you run one of the commands above, the system automatically records your IP address, the action, and the timestamp.
 
-\## Use Case 6 — Admin Revokes User
+Even if you get an "Access Denied" error, the system logs the attempt. This satisfies our project requirement for Full Auditing.
 
-DELETE /users/2
+---
 
-Result: User 2 has been deactivated
+## Summary of what we are proving:
 
-
-
-\## Use Case 7 — Admin Views Audit Logs
-
-GET /audit
-
-Result: 5 audit log entries returned showing all actions
-
+*   **Statelessness:** The server doesn't "remember" you; it only trusts the JWT you send.
+*   **Integrity:** Passwords are never stored as plain text (we use bcrypt).
+*   **RBAC:** Access is strictly controlled by roles, not just by being logged in.
