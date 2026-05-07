@@ -7,6 +7,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
+
 # Create a simple health-check route
 @app.get("/")
 def read_root():
