@@ -71,6 +71,6 @@ It shows how organizations can reduce security risks, simplify access control, a
 |------------------|--------------------------------------------------|
 | Chinkhuselts     | Backend API, authentication logic, JWT           |
 | Samreen1629      | Database design, PostgreSQL schema               |
-| UwaseNadege      | Security, JWT validation, RBAC access control    |
+| UwaseNadege      | Database design & implementation (IAM: users, roles, JWT, RBAC)    |
 | AnastiaChaika    | API testing and documentation                    |
 | AgamirAhmadov    | Project documentation and API description        |
